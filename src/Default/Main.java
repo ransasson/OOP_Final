@@ -12,7 +12,6 @@ public class Main extends Application {
 		launch(args);
 	}
 
-	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Model theModel = new Model();
 		View theView = new View(primaryStage);
