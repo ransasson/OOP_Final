@@ -25,8 +25,7 @@ public class Model {
 	private ObjectInputStream ois;
 	private Memento memento;
 
-	public Model(int sort) {
-		this.sortBy = sort;
+	public Model() {
 		File file = new File(FILE_NAME);
 		try {
 			outputStream = new FileOutputStream(file);
@@ -52,19 +51,14 @@ public class Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (sortBy == 1) {
-			treemap = new TreeMap<String, Product>(new SortByAsc());
-		} else if (sortBy == 2) {
-			treemap = new TreeMap<String, Product>(new SortByDesc());
-		} else {
-			linkedMap = new LinkedHashMap<String, Product>();
-		}
+		
 		/// reading the map from file
-		readMapFromFile();
+		//if(file.exists())
+			//readMapFromFile();
 	}
 
 	public void UpdateCatalogNum(String catalog, String name, int storeCost, int customerCost, String customerName,
-			int phoneNumber, boolean updates) {
+			String phoneNumber, boolean updates) {
 		memento = getMemento();
 		Customer customer = new Customer(customerName, phoneNumber, updates);
 		Product product = new Product(name, storeCost, customerCost, customer);
@@ -95,41 +89,67 @@ public class Model {
 		saveMapToFile();
 
 	}
+	
+	public void setSort(int sort) {
+		sortBy=sort;
+		if (sortBy == 1) {
+			treemap = new TreeMap<String, Product>(new SortByAsc());
+		} else if (sortBy == 2) {
+			treemap = new TreeMap<String, Product>(new SortByDesc());
+		} else {
+			linkedMap = new LinkedHashMap<String, Product>();
+		}
+	}
 
 	private void saveMapToFile() {
-		if (sortBy != 3) {
-			try {
-				oos.writeObject(treemap);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} else {
-			try {
-				oos.writeObject(linkedMap);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		if(sortBy!=3)
+		{
+			for (Map.Entry<String, Product> e : treemap.entrySet()) {
+				System.out.println(e.getKey());
+				System.out.println(e.getValue().getStroreCost());
 			}
 		}
-		try {
-			oos.flush();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		else
+		{
+			for (Entry<String, Product> e : linkedMap.entrySet()) {
+				System.out.println(e.getKey());
+				System.out.println(e.getValue().getStroreCost());
+			}
 		}
-		try {
-			oos.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			outputStream.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+//		if (sortBy != 3) {
+//			try {
+//				oos.writeObject(treemap);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		} else {
+//			try {
+//				oos.writeObject(linkedMap);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//		try {
+//			oos.flush();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			oos.close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			outputStream.close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 	}
 
@@ -165,7 +185,7 @@ public class Model {
 		}
 	}
 
-	public void setMemento(Memento memento) {
+	public void setMemento() {
 		if (sortBy != 3) {
 			this.treemap = memento.getTreeMap();
 		} else {

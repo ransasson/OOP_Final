@@ -38,5 +38,23 @@ public class Controller {
 			}
 		};
 		theView.addEventTosaveByOrder(saveByOrderPressed);
+		
+		EventHandler<ActionEvent> saveChangesPressed = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				theView.saveChanges(theModel);
+
+			}
+		};
+		theView.addEventTosaveChanges(saveChangesPressed);
+		
+		EventHandler<ActionEvent> undoPressed = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				theView.undo(theModel);
+
+			}
+		};
+		theView.addEventToUndo(undoPressed);
 	}
 }

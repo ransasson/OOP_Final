@@ -2,10 +2,10 @@ package model;
 
 public class Customer {
 	private String name;
-	private int phoneNumber;
+	private String phoneNumber;
 	private boolean updates;
 
-	public Customer(String name, int phone, boolean updates) {
+	public Customer(String name, String phone, boolean updates) {
 		this.name = name;
 		this.phoneNumber = phone;
 		this.updates = updates;
@@ -19,7 +19,7 @@ public class Customer {
 		return this.name;
 	}
 
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return this.phoneNumber;
 	}
 	
