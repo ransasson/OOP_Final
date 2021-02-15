@@ -51,10 +51,10 @@ public class Model {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		/// reading the map from file
-		//if(file.exists())
-			//readMapFromFile();
+		// if(file.exists())
+		// readMapFromFile();
 	}
 
 	public void UpdateCatalogNum(String catalog, String name, int storeCost, int customerCost, String customerName,
@@ -89,9 +89,9 @@ public class Model {
 		saveMapToFile();
 
 	}
-	
+
 	public void setSort(int sort) {
-		sortBy=sort;
+		sortBy = sort;
 		if (sortBy == 1) {
 			treemap = new TreeMap<String, Product>(new SortByAsc());
 		} else if (sortBy == 2) {
@@ -102,21 +102,18 @@ public class Model {
 	}
 
 	private void saveMapToFile() {
-		if(sortBy!=3)
-		{
+		if (sortBy != 3) {
 			for (Map.Entry<String, Product> e : treemap.entrySet()) {
 				System.out.println(e.getKey());
 				System.out.println(e.getValue().getStroreCost());
 			}
-		}
-		else
-		{
+		} else {
 			for (Entry<String, Product> e : linkedMap.entrySet()) {
 				System.out.println(e.getKey());
 				System.out.println(e.getValue().getStroreCost());
 			}
 		}
-		
+
 //		if (sortBy != 3) {
 //			try {
 //				oos.writeObject(treemap);
@@ -187,9 +184,9 @@ public class Model {
 
 	public void setMemento() {
 		if (sortBy != 3) {
-			this.treemap = memento.getTreeMap();
+			this.treemap.putAll(memento.getTreeMap());
 		} else {
-			this.linkedMap = memento.getLinked();
+			this.linkedMap.putAll(memento.getLinked());
 		}
 	}
 }
